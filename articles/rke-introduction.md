@@ -10,7 +10,7 @@ https://rancher.com/docs/rke/latest/en/
 
 今更ながら、RKE(Rancher Kubernetes Engine)という Kubernetes クラスタのデプロイツールを知りました。
 
-## 前置き
+# 前置き
 
 これまで ansible の使用経験があったので、Kubespray,kubeadm を使ってクラスタを構築していました。
 
@@ -30,7 +30,7 @@ https://github.com/geerlingguy/ansible-role-kubernetes
 
 https://www.rancher.co.jp/what-is-rancher/how-is-rancher-different/
 
-## k8s クラスタ構築
+# k8s クラスタ構築
 
 まずは最も一般的な、k8s クラスタ用の yml ファイルを作成して、CLI でクラスタ構築してみます。
 
@@ -42,7 +42,7 @@ https://www.rancher.co.jp/what-is-rancher/how-is-rancher-different/
 | k8s-worker01  | worker | 192.168.100.5  | 192.168.101.5  | kube          | ~/.ssh/id_rsa.kube |
 | k8s-worker02  | worker | 192.168.100.6  | 192.168.101.6  | kube          | ~/.ssh/id_rsa.kube |
 
-### 前提条件
+## 前提条件
 
 - rke 実行端末は MAC
 - node は全て Ubuntu 20.04
@@ -52,7 +52,7 @@ https://www.rancher.co.jp/what-is-rancher/how-is-rancher-different/
 
 その他の細かい条件は RKE のデフォルトを使用します。
 
-### MacにRKEのインストール
+## MacにRKEのインストール
 
 Mac に RKE をインストールします。brew からインストールできます。
 
@@ -60,7 +60,7 @@ Mac に RKE をインストールします。brew からインストールでき
 brew install rke
 ```
 
-### 各nodeの設定
+## 各nodeの設定
 
 各 node が k8s クラスタとして動作するための必要な要件が、以下の前提条件に記載されています。
 
@@ -72,11 +72,15 @@ https://rancher.com/docs/rke/latest/en/os/
 - Docker インストール & 実行ユーザ設定
 - iptables の設定
 
+### swap の無効化
+
 まずは swap を無効化するために以下のコマンドを実行します。
 
 ```bash
 sudo swapoff -a
 ```
+
+### Docker インストール & 実行ユーザ設定
 
 次に、各クラスタには Docker をインストールしておき、実行ユーザが sudo なしで docker コマンドを実行できるようにしておきます。
 
@@ -86,6 +90,8 @@ Rancher には Docker をインストールできるシェルスクリプトが�
 curl https://releases.rancher.com/install-docker/20.10.sh | sh
 sudo usermod -a -G docker kube
 ```
+
+### iptables の設定
 
 最後に iptables(firewall) の設定です。今回は検証環境なので全ての通信を許可しています。
 
@@ -101,7 +107,7 @@ sudo netfilter-persistent save
 先ほどの前提条件に k8s クラスタが使用するポートについて細かく記載されているので、設定したい方は参照してみてください。
 :::
 
-### k8s クラスタ構築
+## k8s クラスタ構築
 
 https://rancher.com/docs/rke/latest/en/installation/#prepare-the-nodes-for-the-kubernetes-cluster
 
@@ -703,7 +709,7 @@ INFO[0006] Cluster removed successfully
 
 :::
 
-## Terraform RKE providerを使用してみる
+# Terraform RKE providerを使用してみる
 
 https://registry.terraform.io/providers/rancher/rke/latest
 
@@ -780,7 +786,7 @@ resource "local_file" "rke_state" {
     - その為、`rke remove` コマンドが実行できるようにこのファイルを保存しています。
     - CLI の時はデフォルトで作成されてましたが、terraform はこのように指定する必要があります。
 
-## Reference
+# Reference
 
 https://febc-yamamoto.hatenablog.jp/entry/introduce-terraform-provider-rke
 
