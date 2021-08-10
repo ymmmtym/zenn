@@ -19,5 +19,10 @@
   "homepage": "https://github.com/ymmmtym/zenn#readme",
   "dependencies": {
     "zenn-cli": "^0.1.91"
+  },
+  "devDependencies": {
+    "textlint": "^12.0.2",
+    "textlint-rule-preset-ja-spacing": "^2.2.0",
+    "textlint-rule-preset-ja-technical-writing": "^7.0.0"
   }
 }
