@@ -3,12 +3,12 @@ title: "GitHub CLI v2.0 のカスタムコマンドを試す"
 emoji: "😸"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["GitHub", "githubcli"]
-published: false
+published: true
 ---
 
 https://cli.github.com/
 
-2021/8/23 に、GitHub CLI 2.0.0 のメジャーバージョンがリリースされました。
+2021/8/23 に、GitHub CLI 2.0.0 がリリースされました。
 
 ```bash
 $ gh --version
@@ -16,21 +16,21 @@ gh version 2.0.0 (2021-08-23)
 https://github.com/cli/cli/releases/tag/v2.0.0
 ```
 
-新機能には拡張コマンドというものがあり、`gh extension` よりカスタムコマンドを実行できます。
-トピックに、`gh-extension` を付けて公開している人が多いので、好みの拡張機能を探すことができそうです。
+新機能には拡張コマンドというものがあり、`gh extension` より拡張コマンドを設定できます。
+トピックに、`gh-extension` を付けて公開している人が多いので、好みの拡張コマンドを探すことができそうです。
 
 https://github.com/topics/gh-extension
 
-# インストールしてみる
+# 拡張コマンドのインストール
 
-使ってみたい拡張機能をインストールしてみます。
+使ってみたい拡張コマンドをインストールしてみます。
+`gh extension install ${OWNER}/${REPOSITORY}` コマンドでインストールできます。
 
 ## gh-user-status
 
 https://github.com/vilmibm/gh-user-status
 
-GitHub のユーザ状態の確認や変更ができる拡張機能です。
-`gh extension install` コマンドでインストールできます。
+GitHub ユーザステータスの確認や変更ができる拡張コマンドです。
 
 ```bash
 $ gh extension install vilmibm/gh-user-status
@@ -43,8 +43,8 @@ Receiving objects: 100% (133/133), 12.80 MiB | 12.39 MiB/s, done.
 Resolving deltas: 100% (79/79), done.
 ```
 
-`~/.local/share/gh/extensions` に拡張機能のリポジトリが clone されているようです。
-インストールが完了したら、コマンドを実行してみます。
+`~/.local/share/gh/extensions` に拡張コマンドのリポジトリが clone されているようです。
+インストールが完了したら、使用できるかコマンドを実行して確認してみます。
 
 ```bash
 $ gh user-status get
@@ -61,9 +61,9 @@ GitHub の Contribution グラフを、ターミナルで表示できます。�
 gh extension install kawarimidoll/gh-graph
 ```
 
-## インストールした一覧の確認
+# インストールした拡張コマンドの一覧を出力
 
-`gh extension list` コマンドで、インストールした拡張機能の一覧がみれます。
+`gh extension list` コマンドで、インストールした拡張コマンドの一覧がみれます。
 
 ```bash
 $ gh extension list
@@ -71,11 +71,10 @@ gh graph        kawarimidoll/gh-graph
 gh user-status  vilmibm/gh-user-status
 ```
 
-# アップグレードしてみる
+# インストールした拡張コマンドのアップグレード
 
-`gh extension upgrade` コマンドで、インストールした拡張機能をアップグレードできます。
-
-出力をみる限りだと、`git pull` しているようです。
+`gh extension upgrade ${OWNER}/${REPOSITORY}` コマンドで、インストールした拡張コマンドをアップグレードできます。
+`--all` オプションですべての拡張コマンドをアップグレードします。
 
 ```bash
 $ gh extension upgrade --all
@@ -83,20 +82,23 @@ $ gh extension upgrade --all
 [user-status]: Already up to date.
 ```
 
-# 削除してみる
+出力をみる限りだと、`git pull` しているようです。
 
-`gh extension remove` コマンドで、インストールした拡張機能を削除できます。
+# インストールした拡張コマンドの削除
+
+`gh extension remove ${OWNER}/${REPOSITORY}` コマンドで、インストールした拡張コマンドを削除できます。
 
 ```bash
 $ gh extension remove vilmibm/gh-user-status
 ✓ Removed extension user-status
 ```
 
-# 自分で作ってみる
+# 拡張コマンドの作成
 
 https://github.com/ymmmtym/gh-gitignore
 
-簡単なものを作成してみました。GitHub が公開している `.gitignore` のテンプレートを取得するだけのカスタムコマンドです。
+簡単なものを作成してみました。
+GitHub が公開している `.gitignore` のテンプレートを、コマンド実行ディレクトリに保存するだけのカスタムコマンドです。
 （今まで新規リポジトリで `.gitignore` を作成するとき、公開しているリポジトリを見に行ってコピペして〜をしていたので、gh コマンドから簡単に作成できるようにしました。）
 
 ## 作成手順
@@ -107,8 +109,7 @@ https://github.com/ymmmtym/gh-gitignore
 cd ~/.local/share/gh/extensions
 ```
 
-拡張機能はこのディレクトリにインストールされるので、ここで作成すると GitHub に上げなくても使うことができます。
-また、作成時の出力にある通りローカルインストールもできますが元々インストールされるディレクトリで作業しているので、インストールは不要です。
+拡張コマンドはこのディレクトリにインストールされるので、ここで作業することにより作成中でもコマンド実行できます。
 
 ```bash
 $ gh extension create gitignore
@@ -126,16 +127,30 @@ For more information on writing extensions:
 https://docs.github.com/github-cli/github-cli/creating-github-cli-extensions
 ```
 
-作成されたリポジトリに移動します。
+出力にある通り、作成されたリポジトリに移動します。
+元々インストールされるディレクトリで作業しているので、ローカルインストールは不要です。
 
 ```bash
 cd gh-gitignore
 ```
 
 `git init` されており、`gh-gitignore` という実行ファイルが存在する状態になっています。
-このファイルに実行内容を記載します。
 
 ```bash
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+    new file:   gh-gitignore
+```
+
+拡張コマンドを実行したとき、実際にはこのファイルが実行されています。
+実行ファイルの内容を書き換えていきます。
+
+```bash:gh-gitignore
 #!/bin/bash
 
 type fzf >/dev/null 2>&1
@@ -158,18 +173,28 @@ echo "✓ Downloaded ${NAME} to .gitignore"
 ```
 
 このカスタムコマンドは、`fzf` が必要なので、インストールされていない場合はエラーが返ってくるようになっています。
-実行内容の記載が完了して GitHub に Push すると、すぐに使えるようになりました。
+
+ファイル内容を書き換えて GitHub に Push すると、一般的な方法で拡張コマンドをインストールできるようになります。
+
+## 使用方法
+
+拡張コマンドをインストールします。
+すでに `~/.local/share/gh/extensions` に配置している場合は不要です。
 
 ```bash
 gh extension install ymmmtym/gh-gitignore
 ```
 
-任意のディレクトリで実行できます。
+コマンドを実行すると、`github/gitignore` にある `.gitignore` のテンプレートの一覧が表示されるので、取得したいものを選択してダウンロードできます。
 
 ```bash
 $ gh gitignore 
-✓ Downloaded Go.gitignore to .gitignore
+✓ Downloaded Go.gitignore to /tmp/.gitignore
+```
 
+![fzf GitHub gitignore](https://imgur.com/Huipcw0.png)
+
+```bash
 $ cat .gitignore 
 # Binaries for programs and plugins
 *.exe
@@ -190,12 +215,14 @@ $ cat .gitignore
 
 # さいごに
 
-`gh extension` コマンドのよく使うコマンドと、簡単なカスタムコマンドを作成してみました。
+`gh extension` コマンドのよく使うコマンドと、簡単な拡張コマンドを作成してみました。
 
-コマンドには引数やオプションを指定することができるので、汎用的なカスタムコマンドを作成できるように活用したいと思います。
+コマンドには引数やオプションを指定できるので、汎用的なカスタムコマンドを作成できるように活用します。
 
 # Reference
 
 https://forest.watch.impress.co.jp/docs/news/1346017.html
 
 https://zenn.dev/kawarimidoll/articles/75430b40622e7c
+
+https://github.com/github/gitignore
