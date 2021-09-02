@@ -3,7 +3,7 @@ title: "知っておくと便利な SSH の設定やコマンド"
 emoji: "💻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["ssh", "linux"]
-published: false
+published: true
 ---
 
 https://www.openssh.com/
