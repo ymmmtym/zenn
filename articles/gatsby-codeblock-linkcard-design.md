@@ -1,9 +1,9 @@
 ---
 title: "【Gatsby】コードブロックとリンクカードをデザインする"
-emoji: "🐕"
+emoji: "🔮"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["gatsby", "markdown", "blog"]
-published: false
+published: true
 ---
 
 https://blog.ymmmtym.com/
