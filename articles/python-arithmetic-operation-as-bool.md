@@ -3,7 +3,7 @@ title: "【Python】bool 型のまま算術演算する"
 emoji: "🐍"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["python", "programming"]
-published: false
+published: true
 ---
 
 bool 型は int 型のサブクラスであるため、そのまま算術演算に使用できます。
