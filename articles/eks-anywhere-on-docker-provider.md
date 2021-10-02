@@ -3,7 +3,7 @@ title: "EKS Anywhere（Docker プロバイダー）を試してみる"
 emoji: "💨"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["eks", "kubernetes"]
-published: false
+published: true
 ---
 
 https://anywhere.eks.amazonaws.com/
