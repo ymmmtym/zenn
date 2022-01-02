@@ -3,7 +3,7 @@ title: "terraform moved block を使ってみる"
 emoji: "🗂"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["terraform"]
-published: false
+published: true
 ---
 
 terraform v1.1.0 から、moved ブロックが使えるようになりました。
@@ -27,7 +27,6 @@ terraform のコードが煩雑になってくると、以下のような要望�
 terraform で管理しているリソース名を変更する場合、tf ファイルだけでなく tfstate ファイルも変更する必要があります。
 
 これまでは `terraform state mv` コマンドを実行して、tfstate に保存されたリソース名を **1 つ 1 つ**変更していました。
-
 これからは moved block でリソース名変更をコードで宣言することにより、コードレビューの実施や `terraform apply` コマンドから一括でリソース名を変更できます。
 
 ## サンプルコード
@@ -135,8 +134,8 @@ resource "esxi_guest" "vyos" {
 
 | 変更前 | 変更後 |
 | --- | --- |
-| esxi_guest.vyos01 | esxi_guest.vyos.0 |
-| esxi_guest.vyos02 | esxi_guest.vyos.1 |
+| `esxi_guest.vyos01` | `esxi_guest.vyos.0` |
+| `esxi_guest.vyos02` | `esxi_guest.vyos.1` |
 
 既存のリソースが削除され、新規リソースが作成されたので、 `terraform plan` を実行すると created/destroyed が発生します。
 
