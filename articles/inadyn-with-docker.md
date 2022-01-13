@@ -3,7 +3,7 @@ title: "inadyn+docker で自宅 DNSドメインを自動更新する"
 emoji: "💽"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["dns", "inadyn", "docker", "kubernetes"]
-published: false
+published: true
 ---
 
 DNS ドメインの取得に、Google Domains を利用しています。
