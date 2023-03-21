@@ -21,7 +21,7 @@
     "zenn-cli": "^0.1.131"
   },
   "devDependencies": {
-    "textlint": "12.6.1",
+    "textlint": "13.3.1",
     "textlint-rule-preset-ja-spacing": "2.3.0",
     "textlint-rule-preset-ja-technical-writing": "7.0.0"
   }
