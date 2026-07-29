@@ -15,7 +15,8 @@
         "allow": ["か"]
       },
       "ja-no-mixed-period": {
-        "allowPeriodMarks": [":"]
+        "allowPeriodMarks": [":"],
+        "allowEmojiAtEnd": true
       },
       "sentence-length": false
     },
